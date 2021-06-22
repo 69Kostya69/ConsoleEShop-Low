@@ -13,7 +13,10 @@ namespace EShop.Ninject
         {
             kernel.Bind<IContext>().To<FakeDb>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
-            kernel.Bind<IRepository<Product>>().To<ProductRepository>();
+            kernel.Bind<IProductRepository>().To<ProductRepository>();
+            kernel.Bind<IRepository<Cart>>().To<CartRepository>();
+            kernel.Bind<IRepository<Order>>().To<OrderRepository>();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }

@@ -2,40 +2,36 @@
 using EShop.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace EShop.Data.Repositories
 {
-    public class ProductRepository : IRepository<Product>
+    public class ProductRepository : IProductRepository
     {
-        public void Create(Product item)
+        private IContext context;
+        public ProductRepository(IContext _context)
         {
-            throw new NotImplementedException();
+            context = _context;
         }
 
-        public IEnumerable<Product> Find(Func<Product, bool> predicate)
-        {
-            throw new NotImplementedException();
-        }
+        public void Create(Product item) => context.Products.Add(item);
 
-        public Product Get(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Product> Find(Func<Product, bool> predicate) => context.Products.Where(predicate).ToList();
 
-        public IEnumerable<Product> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public Product Get(int id) => context.Products.Where(x => x.Id == id).FirstOrDefault();
 
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<Product> GetAll() => context.Products.ToList();
+
+        public Product GetProductByName(string productName) => context.Products.Where(x => x.Name == productName).FirstOrDefault();
+
+        public void Remove(int id) => context.Products.Remove(Get(id));
 
         public void Update(Product item)
         {
-            throw new NotImplementedException();
+            Remove(item.Id);
+            Create(item);
         }
+
     }
 }

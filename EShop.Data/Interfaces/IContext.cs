@@ -10,5 +10,7 @@ namespace EShop.Data.Interfaces
         List<User> Users { get; set; }
 
         List<Product> Products { get; set; }
+        List<Cart> Carts { get; set; }
+        List<Order> Orders { get; set; }
     }
 }
