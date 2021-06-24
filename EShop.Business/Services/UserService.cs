@@ -11,6 +11,9 @@ using System.Text;
 
 namespace EShop.Business.Services
 {
+    /// <summary>
+    /// Provides user authentication
+    /// </summary>
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _data;
@@ -25,6 +28,12 @@ namespace EShop.Business.Services
         private RegisterModel FindUser(string email, string password) =>
             _mapper.Map<RegisterModel>(_data.Users.GetUserByEmailAndPassword(email, password));
 
+        /// <summary>
+        /// Сhecks if the user is in the database
+        /// </summary>
+        /// <param name="model"> Contains user Email and Password</param>
+        /// <returns> true - if the database contains user</returns>
+        /// <exception cref="AuthorizeException">Throws when user is not registered</exception>
         public bool LoginUser(LoginModel model)
         {
             var user = FindUser(model.Email, model.Password);
@@ -34,6 +43,12 @@ namespace EShop.Business.Services
                 return true;
         }
 
+        /// <summary>
+        /// Adds new users to database
+        /// </summary>
+        /// <param name="model">Contains user credentials</param>
+        /// <exception cref="ModelException">Throws when RegisterModel is invalid</exception>
+        /// <exception cref="UnuniqueException">Throws when email already exist in database</exception>
         public void RegisterUser(RegisterModel model)
         {
             if (model.IsModelInvalid())
