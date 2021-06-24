@@ -16,7 +16,35 @@ namespace EShop
                                   "3) Regestration;\n" +
                                   "4) Exit\n" +
                                   "Your choose: ");
-                int n = int.Parse(Console.ReadLine());
+                try
+                {
+                    int n = int.Parse(Console.ReadLine());
+
+                    switch (n)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            Console.WriteLine("Goodbye!");
+                            return;
+                        default:
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Error input! Try again\n");
+                            Console.ResetColor();
+                            break;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{ex.Message}\n");
+                    Console.ResetColor();
+                }
+                
             }
         }
     }

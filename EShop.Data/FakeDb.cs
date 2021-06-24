@@ -8,6 +8,8 @@ namespace EShop.Data
     {
         List<User> IContext.Users { get => Users; set => Users =value; }
         List<Product> IContext.Products { get => Products; set => Products = value; }
+        List<Cart> IContext.Carts { get => Carts; set => Carts =value; }
+        List<Order> IContext.Orders { get => Orders; set => Orders = value; }
 
         private List<User> Users = new List<User>
         {
