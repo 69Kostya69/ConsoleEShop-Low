@@ -11,6 +11,9 @@ using System.Text;
 
 namespace EShop.Business.Services
 {
+    /// <summary>
+    /// Provides crud actions for cart data
+    /// </summary>
     public class CartService : ICartService
     {
         private readonly IUnitOfWork data;
@@ -18,6 +21,11 @@ namespace EShop.Business.Services
 
         public CartService(IUnitOfWork data, IMapper mapper) => (this.data, this.mapper) = (data, mapper);
 
+        /// <summary>
+        /// Add product by id to the cart of the user 
+        /// </summary>
+        /// <param name="userId">id of the user</param>
+        /// <param name="productId">id of the product</param>
         public void AddToCart(int userId, int productId)
         {
             Cart cart;
@@ -33,11 +41,21 @@ namespace EShop.Business.Services
             data.Carts.Update(cart);
         }
 
+        /// <summary>
+        /// Gives summary cost of products
+        /// </summary>
+        /// <param name="products">List of products</param>
+        /// <returns>float value cost of products</returns>
         public float CalculateSum(IEnumerable<ProductModel> products)
         {
             return products.Select(item => item.Price).Sum();
         }
 
+        /// <summary>
+        /// Gives an information about products in users cart
+        /// </summary>
+        /// <param name="userId">id of the user</param>
+        /// <returns>List of products</returns>
         public IEnumerable<ProductModel> GetCartProducts(int userId)
         {
             Cart cart;
@@ -53,6 +71,12 @@ namespace EShop.Business.Services
             return mapper.Map<IEnumerable<ProductModel>>(cart.Products);
         }
 
+        /// <summary>
+        /// Remove product from cart
+        /// </summary>
+        /// <param name="userId">id of the user</param>
+        /// <param name="id">id of the product</param>
+        /// <exception cref="CustomException">Throws when cart or product in cart is empty</exception>
         public void RemoveFromCart(int userId, int id)
         {
             int cartId = GetCartId(userId);
