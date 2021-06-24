@@ -1,4 +1,6 @@
-﻿using EShop.Data;
+﻿using AutoMapper;
+using EShop.Business.Mapper;
+using EShop.Data;
 using EShop.Data.Entities;
 using EShop.Data.Interfaces;
 using EShop.Data.Repositories;
